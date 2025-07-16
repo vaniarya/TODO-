@@ -14,12 +14,23 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.CheckBox;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
 public class HelloApplication extends Application {
 
-    private final ArrayList<String> taskList= new ArrayList<>();
+    private final ArrayList<Data> taskList= new ArrayList<>();
+
+    class Data{
+        private String tasks;
+        private LocalDate dates;
+        Data(String tasks, LocalDate dates){
+            this.tasks= tasks;
+            this.dates= dates;
+        }
+    }
 
     @Override
     public void start(Stage stage) {
@@ -60,10 +71,10 @@ public class HelloApplication extends Application {
         tx1.setFont(Font.font("Georgia", 50));
         root2.getChildren().add(tx1);
 
-//        DatePicker datePicker = new DatePicker();
-//        datePicker.setLayoutX(230);
-//        datePicker.setLayoutY(190);
-//        root2.getChildren().add(datePicker);
+        DatePicker datePicker = new DatePicker();
+        datePicker.setLayoutX(195);
+        datePicker.setLayoutY(190);
+        root2.getChildren().add(datePicker);
 
 
         //textfield
@@ -71,9 +82,11 @@ public class HelloApplication extends Application {
         txField.setLayoutX(195);
         txField.setLayoutY(150);
         root2.getChildren().add(txField);
+
+        //Enter button
         Button enter= new Button("enter");
-        enter.setLayoutX(260);
-        enter.setLayoutY(200);
+        enter.setLayoutX(230);
+        enter.setLayoutY(230);
         root2.getChildren().add(enter);
 
         //Back button
@@ -122,8 +135,10 @@ public class HelloApplication extends Application {
         bt2.setOnAction(e -> {
 
             vCont.getChildren().clear();
-            for(String task: taskList){
-                CheckBox ch= new CheckBox(task);
+            int a= taskList.size();
+            for(int i=0; i<a; i++){
+                final int idx= i;
+                CheckBox ch= new CheckBox(taskList.get(i).tasks+"   Due-"+taskList.get(i).dates);
                 Button del= new Button("X");
 
                 del.setStyle("-fx-background-color: red;");
@@ -132,7 +147,7 @@ public class HelloApplication extends Application {
                 hBox.getChildren().addAll(ch, del);
 
                 del.setOnAction(e1->{
-                    taskList.remove(task);
+                    taskList.remove(idx);
                     vCont.getChildren().remove(hBox);
                 });
 
@@ -146,11 +161,13 @@ public class HelloApplication extends Application {
         btImg2.setOnAction(e-> stage.setScene(sc));
         enter.setOnAction(e-> {
             String task= txField.getText().trim();
+            LocalDate date= datePicker.getValue();
             if(!task.isEmpty()){
-                taskList.add(task);
+                taskList.add(new Data(task, date));
             }
             System.out.println("Task added successfully");
             txField.clear();
+            datePicker.setValue(null);
         });
 
         stage.setTitle("Your TODO");
