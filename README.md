@@ -6,7 +6,7 @@ A modern **To-Do List Application** built in **JavaFX**, allowing users to add, 
 
 ## 📌 Features
 
-- 📝 Add tasks
+- 📝 Add tasks with descriptions and due dates
 - 👀 View all tasks with checkboxes and delete buttons
 - 📜 Scrollable task list layout using `VBox` and `ScrollPane`
 - 🎨 Styled with colors, fonts, and image-based buttons
@@ -29,10 +29,12 @@ A modern **To-Do List Application** built in **JavaFX**, allowing users to add, 
 
 ### ➕ Add Task
 - Input task description
+- Pick a due date
 - Submit task to add to list
 
 ### 👁️ View Tasks
 - Displays each task with a checkbox and delete button
+- due dates can be viewed
 - Scrolls vertically to accommodate many tasks
 
 ## 🧪 Technologies Used
